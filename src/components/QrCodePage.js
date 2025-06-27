@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 
 const QrCodePage = () => {
   // Replace this with your actual deployed URL
-  const bookingUrl = 'https://your-clinic-booking.vercel.app/book';
+  const bookingUrl = 'https://clinic-frontend-ebon.vercel.app/book';
 
   return (
     <div>
