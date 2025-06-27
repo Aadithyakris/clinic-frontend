@@ -58,6 +58,14 @@ const SlotList = () => {
   }
 };
 
+const handleSelect = (slotId) => {
+  if (selectedSlots.includes(slotId)) {
+    setSelectedSlots(selectedSlots.filter((id) => id !== slotId));
+  } else {
+    setSelectedSlots([...selectedSlots, slotId]);
+  }
+};
+
 
   return (
     <div>
