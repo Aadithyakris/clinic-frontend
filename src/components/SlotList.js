@@ -33,19 +33,31 @@ const SlotList = () => {
   };
 
   const handleDelete = async () => {
-    if (selectedSlots.length === 0) return;
-    try {
-      await axios.post('https://clinic-bot-backend.onrender.com/api/slots/delete', {
-        slotIds: selectedSlots,
-      });
-      alert('Slots deleted successfully');
-      fetchSlots(); // refresh
-      setSelectedSlots([]);
-    } catch (err) {
-      console.error('Error deleting slots:', err);
-      alert('Failed to delete');
-    }
-  };
+  if (selectedSlots.length === 0) {
+    alert("No slots selected.");
+    return;
+  }
+
+  const confirmDelete = window.confirm(
+    `Are you sure you want to delete ${selectedSlots.length} slot(s)?`
+  );
+  if (!confirmDelete) return;
+
+  try {
+    await Promise.all(
+      selectedSlots.map((id) =>
+        axios.delete(`https://clinic-bot-backend.onrender.com/api/slots/${id}`)
+      )
+    );
+    setSlots((prev) => prev.filter((slot) => !selectedSlots.includes(slot.id)));
+    setSelectedSlots([]);
+    alert("Selected slots deleted successfully.");
+  } catch (err) {
+    console.error("Error deleting slots:", err);
+    alert("Error deleting one or more slots.");
+  }
+};
+
 
   return (
     <div>
@@ -54,14 +66,25 @@ const SlotList = () => {
       <button onClick={fetchSlots}>Fetch Slots</button>
       <ul>
         {slots.map((slot) => (
-          <li key={slot.id}>
+          <li
+            key={slot.id}
+            style={{
+              backgroundColor: slot.isBooked ? '#ffd6d6' : '#d6ffd6',
+              padding: '10px',
+              marginBottom: '8px',
+              borderRadius: '6px',
+            }}
+          >
             <input
               type="checkbox"
               checked={selectedSlots.includes(slot.id)}
-              onChange={() => handleCheckboxChange(slot.id)}
+              onChange={() => handleSelect(slot.id)}
+              disabled={slot.isBooked}
+              style={{ marginRight: '10px' }}
             />
-            ⏰ {slot.time}
+            ⏰ {slot.time} | {slot.isBooked ? '🟥 Booked' : '🟩 Available'}
           </li>
+
         ))}
       </ul>
       <button onClick={handleDelete} disabled={selectedSlots.length === 0}>
