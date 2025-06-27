@@ -7,8 +7,15 @@ const BookedSlots = () => {
   const [message, setMessage] = useState('');
 
   const fetchBookedSlots = async () => {
+    if (!date) {
+      alert("Please select a date first.");
+      return;
+    }
+
     try {
-      const res = await axios.get(`https://clinic-bot-backend.onrender.com/api/booked-slots?date=${date}`);
+      const res = await axios.get(
+        `https://clinic-bot-backend.onrender.com/api/booked-slots?date=${date}`
+      );
       if (res.data.length === 0) {
         setMessage('No booked slots for this date.');
       } else {
@@ -24,7 +31,11 @@ const BookedSlots = () => {
   return (
     <div>
       <h2>Booked Slots</h2>
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
       <button onClick={fetchBookedSlots}>Fetch Booked Slots</button>
       {message && <p>{message}</p>}
       <ul>
