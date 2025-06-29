@@ -66,41 +66,6 @@ const handleSelect = (slotId) => {
   }
 };
 
-
-  // return (
-  //   <div>
-  //     <h2>Slots List</h2>
-  //     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-  //     <button onClick={fetchSlots}>Fetch Slots</button>
-  //     <ul>
-  //       {slots.map((slot) => (
-  //         <li
-  //           key={slot.id}
-  //           style={{
-  //             backgroundColor: slot.isBooked ? '#ffd6d6' : '#d6ffd6',
-  //             padding: '10px',
-  //             marginBottom: '8px',
-  //             borderRadius: '6px',
-  //           }}
-  //         >
-  //           <input
-  //             type="checkbox"
-  //             checked={selectedSlots.includes(slot.id)}
-  //             onChange={() => handleSelect(slot.id)}
-  //             disabled={slot.isBooked}
-  //             style={{ marginRight: '10px' }}
-  //           />
-  //           ⏰ {slot.time} | {slot.isBooked ? '🟥 Booked' : '🟩 Available'}
-  //         </li>
-
-  //       ))}
-  //     </ul>
-  //     <button onClick={handleDelete} disabled={selectedSlots.length === 0}>
-  //       Delete Selected Slots
-  //     </button>
-  //   </div>
-  // );
-
 return (
   <div style={{ padding: '1rem' }}>
     <h2>Available Slots</h2>
@@ -114,6 +79,9 @@ return (
       <button onClick={fetchSlots}>Fetch Slots</button>
     </div>
 
+  {slots.length === 0 ? (
+  <p style={{ color: 'gray', fontStyle: 'italic' }}>No available slots for this date.</p>
+) : (
     <div
       style={{
         display: 'grid',
@@ -146,7 +114,7 @@ return (
           </div>
         </div>
       ))}
-    </div>
+    </div>)}
 
     <div style={{ marginTop: '1.5rem' }}>
       <button
