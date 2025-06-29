@@ -41,10 +41,10 @@ const AdminPanel = () => {
     <div>
       <h1>Doctor Admin Panel</h1>Add commentMore actions
       <nav>
-        <Link to="/admin">Generate Slots</Link> |{" "}
-        <Link to="/admin/slots">Available Slots</Link> |{" "}
-        <Link to="/admin/booked">Booked Slots</Link> |{" "}
-        <Link to="/admin/qr">QR Code</Link>
+        <Link to="/">Generate Slots</Link> |{" "}
+        <Link to="/slots">Available Slots</Link> |{" "}
+        <Link to="/booked">Booked Slots</Link> |{" "}
+        <Link to="/qr">QR Code</Link>
       </nav>
       <hr />
       <button onClick={handleLogout}>Logout</button>
