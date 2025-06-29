@@ -23,7 +23,7 @@ import { Navigate } from 'react-router-dom';
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/generate" />} />
+        <Route path="/" element={<Navigate to="/admin" />} />
         <Route path="/admin" element={<SlotForm />} />
         <Route path="/admin/slots" element={<SlotList />} />
         <Route path="/admin/booked" element={<BookedSlotList />} />
