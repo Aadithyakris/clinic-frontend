@@ -94,12 +94,15 @@ const BookingForm = () => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [booking, setBooking] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const fetchSlots = async () => {
     if (!date) return;
     setLoading(true);
     setAvailableSlots([]);
     setSelectedSlotId('');
+    setHasFetched(false);
+
     try {
       const res = await axios.get(`https://clinic-bot-backend.onrender.com/api/slots?date=${date}`);
       const sorted = res.data.sort((a, b) => {
@@ -117,6 +120,7 @@ const BookingForm = () => {
       console.error('Error fetching slots:', err);
     } finally {
       setLoading(false);
+      setHasFetched(true);
     }
   };
 
@@ -170,11 +174,15 @@ const BookingForm = () => {
           color: '#fff',
           border: 'none',
           borderRadius: '6px',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
       >
         {loading ? 'Fetching...' : 'Check Slots'}
       </button>
+
+      {hasFetched && availableSlots.length === 0 && (
+        <p style={{ color: 'gray', fontStyle: 'italic' }}>No available slots for selected date.</p>
+      )}
 
       {availableSlots.length > 0 && (
         <>
@@ -189,48 +197,48 @@ const BookingForm = () => {
               <option key={slot.id} value={slot.id}>{slot.time}</option>
             ))}
           </select>
+
+          <label>Name:</label><br />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+          />
+
+          <label>Age:</label><br />
+          <input
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+          />
+
+          <label>Contact Number:</label><br />
+          <input
+            type="text"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            style={{ padding: '0.5rem', marginBottom: '1.5rem', width: '100%' }}
+          />
+
+          <button
+            onClick={handleBook}
+            style={{
+              padding: '0.7rem 1.4rem',
+              backgroundColor: '#28a745',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              width: '100%',
+            }}
+            disabled={booking}
+          >
+            {booking ? 'Booking...' : 'Book Appointment'}
+          </button>
         </>
       )}
-
-      <label>Name:</label><br />
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-      />
-
-      <label>Age:</label><br />
-      <input
-        type="number"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-      />
-
-      <label>Contact Number:</label><br />
-      <input
-        type="text"
-        value={contact}
-        onChange={(e) => setContact(e.target.value)}
-        style={{ padding: '0.5rem', marginBottom: '1.5rem', width: '100%' }}
-      />
-
-      <button
-        onClick={handleBook}
-        style={{
-          padding: '0.7rem 1.4rem',
-          backgroundColor: '#28a745',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '6px',
-          cursor: 'pointer',
-          width: '100%'
-        }}
-        disabled={booking}
-      >
-        {booking ? 'Booking...' : 'Book Appointment'}
-      </button>
 
       {message && (
         <p style={{
@@ -238,7 +246,7 @@ const BookingForm = () => {
           backgroundColor: message.includes('✅') ? '#d4edda' : '#f8d7da',
           color: message.includes('✅') ? '#155724' : '#721c24',
           padding: '0.75rem',
-          borderRadius: '6px'
+          borderRadius: '6px',
         }}>
           {message}
         </p>
