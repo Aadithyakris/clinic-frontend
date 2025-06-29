@@ -49,7 +49,7 @@ const AdminPanel = () => {
       <hr />
       <button onClick={handleLogout}>Logout</button>
 
-      <Routes>Add commentMore actions
+      <Routes>
         <Route path="/admin" element={<SlotForm />} />
         <Route path="/admin/slots" element={<SlotList />} />
         <Route path="/admin/booked" element={<BookedSlotList />} />
