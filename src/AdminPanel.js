@@ -7,6 +7,8 @@ import BookedSlotList from './components/BookedSlotList';
 import QrCodePage from './components/QrCodePage';
 import AdminLogin from './components/AdminLogin';
 import Navbar from './components/Navbar'; 
+import { Navigate } from 'react-router-dom';
+
 
 
   function AdminPanel() {
