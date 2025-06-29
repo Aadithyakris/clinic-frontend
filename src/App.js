@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SlotForm from './components/SlotForm';
 import SlotList from './components/SlotList';
 import BookedSlotList from './components/BookedSlotList';
@@ -8,37 +8,41 @@ import BookingForm from './components/BookingForm';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+const App = () => {
+  const isLoggedIn = localStorage.getItem('isAdmin') === 'true';
+
   return (
     <Router>
       <div>
-        <h1>Doctor Admin Panel</h1>
         <Routes>
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/book" element={<BookingForm />} />
           <Route path="/qr" element={<QrCodePage />} />
 
-          {/* Protected routes */}
-          <Route path="/" element={
-            <ProtectedRoute>
-              <SlotForm />
-            </ProtectedRoute>
-          } />
-          <Route path="/slots" element={
-            <ProtectedRoute>
-              <SlotList />
-            </ProtectedRoute>
-          } />
-          <Route path="/booked" element={
-            <ProtectedRoute>
-              <BookedSlotList />
-            </ProtectedRoute>
-          } />
+          {/* Redirect root to login if not logged in */}
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? <SlotForm /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/slots"
+            element={
+              isLoggedIn ? <SlotList /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/booked"
+            element={
+              isLoggedIn ? <BookedSlotList /> : <Navigate to="/login" replace />
+            }
+          />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
