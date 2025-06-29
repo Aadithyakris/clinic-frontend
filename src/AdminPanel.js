@@ -29,7 +29,7 @@ import AdminLogin from './components/AdminLogin';
         <Route path="/admin/slots" element={<SlotList />} />
         <Route path="/admin/booked" element={<BookedSlotList />} />
         <Route path="/admin/qr" element={<QrCodePage />} />
-      </Routes>Add commentMore actions
+      </Routes>
     </div>
   );
 }
