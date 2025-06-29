@@ -38,23 +38,22 @@ const AdminPanel = () => {
   }
 
   return (
-    <div>
-      <h1>Doctor Admin Panel</h1>Add commentMore actions
+    <div>Add commentMore actions
+      <h1>Doctor Admin Panel</h1>
       <nav>
-        <Link to="/">Generate Slots</Link> |{" "}
-        <Link to="/slots">Available Slots</Link> |{" "}
-        <Link to="/booked">Booked Slots</Link> |{" "}
-        <Link to="/qr">QR Code</Link>
+        <Link to="/admin">Generate Slots</Link> |{" "}
+        <Link to="/admin/slots">Available Slots</Link> |{" "}
+        <Link to="/admin/booked">Booked Slots</Link> |{" "}
+        <Link to="/admin/qr">QR Code</Link>
       </nav>
       <hr />
       <button onClick={handleLogout}>Logout</button>
 
-      <Routes>
-        <Route path="/" element={<SlotForm />} />
-        <Route path="/slots" element={<SlotList />} />
-        <Route path="/booked" element={<BookedSlotList />} />
-        <Route path="/qr" element={<QrCodePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+      <Routes>Add commentMore actions
+        <Route path="/admin" element={<SlotForm />} />
+        <Route path="/admin/slots" element={<SlotList />} />
+        <Route path="/admin/booked" element={<BookedSlotList />} />
+        <Route path="/admin/qr" element={<QrCodePage />} />
       </Routes>
     </div>
   );
