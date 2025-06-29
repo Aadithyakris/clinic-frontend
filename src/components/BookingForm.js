@@ -47,7 +47,7 @@ const BookingForm = () => {
       <h2>Book an Appointment</h2>
 
       <label>Select Date:</label><br />
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      <input type="date" min={new Date().toISOString().split('T')[0]} value={date} onChange={(e) => setDate(e.target.value)} />
       <button onClick={fetchSlots}>Check Slots</button>
 
       {availableSlots.length > 0 && (
