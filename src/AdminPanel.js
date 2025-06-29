@@ -6,6 +6,7 @@ import SlotList from './components/SlotList';
 import BookedSlotList from './components/BookedSlotList';
 import QrCodePage from './components/QrCodePage';
 import AdminLogin from './components/AdminLogin';
+import Navbar from './components/Navbar'; 
 
 
   function AdminPanel() {
@@ -17,13 +18,15 @@ import AdminLogin from './components/AdminLogin';
     return (
     <div>
       <h1>Doctor Admin Panel</h1>
-      <nav>
+      {/* <nav>
         <Link to="/admin">Generate Slots</Link> |{" "}
         <Link to="/admin/slots">Available Slots</Link> |{" "}
         <Link to="/admin/booked">Booked Slots</Link> |{" "}
         <Link to="/admin/qr">QR Code</Link>
       </nav>
-      <hr />
+      <hr /> */}
+      <Navbar />
+
       <Routes>
         <Route path="/admin" element={<SlotForm />} />
         <Route path="/admin/slots" element={<SlotList />} />
