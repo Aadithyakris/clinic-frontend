@@ -157,43 +157,43 @@ const SlotList = () => {
   const [fetched, setFetched] = useState(false); // To check if fetch has run
 
   const fetchSlots = async () => {
-    if (!date) return;
-    setLoading(true);
-    setFetched(true);
-    try {
-      const res = await axios.get(`https://clinic-bot-backend.onrender.com/api/slots?date=${date}`);
-      const sorted = res.data.sort((a, b) => {
-        const toMinutes = (t) => {
-          const [time, ampm] = t.split(' ');
-          let [hr, min] = time.split(':').map(Number);
-          if (ampm === 'PM' && hr !== 12) hr += 12;
-          if (ampm === 'AM' && hr === 12) hr = 0;
-          return hr * 60 + min;
-        };
-        return toMinutes(a.time) - toMinutes(b.time);
-      });
+  try {
+    const res = await axios.get(`https://clinic-bot-backend.onrender.com/api/slots?date=${date}`);
+    const sorted = res.data.sort((a, b) => {
+      const toMinutes = (t) => {
+        const [time, ampm] = t.split(' ');
+        let [hr, min] = time.split(':').map(Number);
+        if (ampm === 'PM' && hr !== 12) hr += 12;
+        if (ampm === 'AM' && hr === 12) hr = 0;
+        return hr * 60 + min;
+      };
+      return toMinutes(a.time) - toMinutes(b.time);
+    });
 
-      // Fetch patient info for booked slots
-      const withDetails = await Promise.all(
-        sorted.map(async (slot) => {
-          if (slot.isBooked && slot.patientId) {
-            try {
-              const patientRes = await axios.get(`https://clinic-bot-backend.onrender.com/api/patient/${slot.patientId}`);
-              return { ...slot, patient: patientRes.data };
-            } catch (e) {
-              return slot;
-            }
+    // Fetch patient details for booked slots
+    const slotsWithPatient = await Promise.all(
+      sorted.map(async (slot) => {
+        if (slot.isBooked && slot.patientId) {
+          try {
+            const patientRes = await axios.get(
+              `https://clinic-bot-backend.onrender.com/api/patients/${slot.patientId}`
+            );
+            return { ...slot, patient: patientRes.data };
+          } catch (err) {
+            console.error(`Failed to fetch patient ${slot.patientId}`, err);
+            return slot;
           }
-          return slot;
-        })
-      );
+        }
+        return slot;
+      })
+    );
 
-      setSlots(withDetails);
-    } catch (err) {
-      console.error('Error fetching slots:', err);
-    }
-    setLoading(false);
-  };
+    setSlots(slotsWithPatient);
+  } catch (err) {
+    console.error('Error fetching slots:', err);
+  }
+};
+
 
   const handleSelect = (slotId) => {
     setSelectedSlots((prev) =>
