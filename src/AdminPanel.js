@@ -39,7 +39,14 @@ const AdminPanel = () => {
 
   return (
     <div>
-      <h1>Doctor Admin Panel</h1>
+      <h1>Doctor Admin Panel</h1>Add commentMore actions
+      <nav>
+        <Link to="/admin">Generate Slots</Link> |{" "}
+        <Link to="/admin/slots">Available Slots</Link> |{" "}
+        <Link to="/admin/booked">Booked Slots</Link> |{" "}
+        <Link to="/admin/qr">QR Code</Link>
+      </nav>
+      <hr />
       <button onClick={handleLogout}>Logout</button>
 
       <Routes>
