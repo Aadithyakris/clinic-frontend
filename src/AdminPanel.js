@@ -21,6 +21,7 @@ import Navbar from './components/Navbar';
       <Navbar />
 
       <Routes>
+        <Route path="/" element={<Navigate to="/generate" />} />
         <Route path="/admin" element={<SlotForm />} />
         <Route path="/admin/slots" element={<SlotList />} />
         <Route path="/admin/booked" element={<BookedSlotList />} />
