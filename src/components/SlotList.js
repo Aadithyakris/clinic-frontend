@@ -67,39 +67,106 @@ const handleSelect = (slotId) => {
 };
 
 
-  return (
-    <div>
-      <h2>Slots List</h2>
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-      <button onClick={fetchSlots}>Fetch Slots</button>
-      <ul>
-        {slots.map((slot) => (
-          <li
-            key={slot.id}
-            style={{
-              backgroundColor: slot.isBooked ? '#ffd6d6' : '#d6ffd6',
-              padding: '10px',
-              marginBottom: '8px',
-              borderRadius: '6px',
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={selectedSlots.includes(slot.id)}
-              onChange={() => handleSelect(slot.id)}
-              disabled={slot.isBooked}
-              style={{ marginRight: '10px' }}
-            />
-            ⏰ {slot.time} | {slot.isBooked ? '🟥 Booked' : '🟩 Available'}
-          </li>
+  // return (
+  //   <div>
+  //     <h2>Slots List</h2>
+  //     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+  //     <button onClick={fetchSlots}>Fetch Slots</button>
+  //     <ul>
+  //       {slots.map((slot) => (
+  //         <li
+  //           key={slot.id}
+  //           style={{
+  //             backgroundColor: slot.isBooked ? '#ffd6d6' : '#d6ffd6',
+  //             padding: '10px',
+  //             marginBottom: '8px',
+  //             borderRadius: '6px',
+  //           }}
+  //         >
+  //           <input
+  //             type="checkbox"
+  //             checked={selectedSlots.includes(slot.id)}
+  //             onChange={() => handleSelect(slot.id)}
+  //             disabled={slot.isBooked}
+  //             style={{ marginRight: '10px' }}
+  //           />
+  //           ⏰ {slot.time} | {slot.isBooked ? '🟥 Booked' : '🟩 Available'}
+  //         </li>
 
-        ))}
-      </ul>
-      <button onClick={handleDelete} disabled={selectedSlots.length === 0}>
+  //       ))}
+  //     </ul>
+  //     <button onClick={handleDelete} disabled={selectedSlots.length === 0}>
+  //       Delete Selected Slots
+  //     </button>
+  //   </div>
+  // );
+
+return (
+  <div style={{ padding: '1rem' }}>
+    <h2>Available Slots</h2>
+    <div style={{ marginBottom: '1rem' }}>
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        style={{ padding: '0.5rem', marginRight: '1rem' }}
+      />
+      <button onClick={fetchSlots}>Fetch Slots</button>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gap: '1rem',
+      }}
+    >
+      {slots.map((slot) => (
+        <div
+          key={slot.id}
+          style={{
+            backgroundColor: slot.isBooked ? '#ffd6d6' : '#d6ffd6',
+            padding: '1rem',
+            borderRadius: '8px',
+            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
+        >
+          <input
+            type="checkbox"
+            checked={selectedSlots.includes(slot.id)}
+            onChange={() => handleSelect(slot.id)}
+            disabled={slot.isBooked}
+          />
+          <div>
+            <p style={{ margin: 0 }}>⏰ {slot.time}</p>
+            <small>{slot.isBooked ? '🟥 Booked' : '🟩 Available'}</small>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div style={{ marginTop: '1.5rem' }}>
+      <button
+        onClick={handleDelete}
+        disabled={selectedSlots.length === 0}
+        style={{
+          padding: '0.7rem 1.2rem',
+          backgroundColor: '#ff4d4d',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: selectedSlots.length === 0 ? 'not-allowed' : 'pointer',
+        }}
+      >
         Delete Selected Slots
       </button>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default SlotList;

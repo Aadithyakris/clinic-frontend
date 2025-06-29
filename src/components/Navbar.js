@@ -1,7 +1,7 @@
 // src/components/Navbar.js
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import './Navbar.css'; // We'll create this next
+import './Navbar.css'; 
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
