@@ -18,13 +18,6 @@ import Navbar from './components/Navbar';
     return (
     <div>
       <h1>Doctor Admin Panel</h1>
-      {/* <nav>
-        <Link to="/admin">Generate Slots</Link> |{" "}
-        <Link to="/admin/slots">Available Slots</Link> |{" "}
-        <Link to="/admin/booked">Booked Slots</Link> |{" "}
-        <Link to="/admin/qr">QR Code</Link>
-      </nav>
-      <hr /> */}
       <Navbar />
 
       <Routes>
