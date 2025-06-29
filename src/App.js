@@ -8,12 +8,6 @@ function App() {
     return (
     <Router>
       <Routes>
-        
-        <Route path="/" element={<SlotForm />} />
-        <Route path="/slots" element={<SlotList />} />
-        <Route path="/booked" element={<BookedSlotList />} />
-        <Route path="/qr" element={<QrCodePage />} />
-        
         {/* Patient Booking Page */}
         <Route path="/book" element={<BookingForm />} />
         {/* Admin Panel Routes */}

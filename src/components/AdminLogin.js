@@ -4,7 +4,6 @@ import { useState } from 'react';
 const AdminLogin = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,19 +21,11 @@ const AdminLogin = ({ onLogin }) => {
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type={showPassword ? 'text' : 'password'}
+          type="password"
           placeholder="Enter admin password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-          /> Show Password
-        </label>
-        <br />
         <button type="submit">Login</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}

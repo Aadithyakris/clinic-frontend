@@ -1,4 +1,6 @@
 // src/AdminPanel.js
+import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import SlotForm from './components/SlotForm';
@@ -7,8 +9,9 @@ import BookedSlotList from './components/BookedSlotList';
 import QrCodePage from './components/QrCodePage';
 import AdminLogin from './components/AdminLogin';
 
-const AdminPanel = () => {
+function AdminPanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,16 +32,10 @@ const AdminPanel = () => {
   };
 
   if (!isLoggedIn) {
-    return (
-      <Routes>
-        <Route path="/login" element={<AdminLogin onLogin={handleLogin} />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    );
+    return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
   }
-
-  return (
-    <div>Add commentMore actions
+    return (
+    <div>
       <h1>Doctor Admin Panel</h1>
       <nav>
         <Link to="/admin">Generate Slots</Link> |{" "}
@@ -47,16 +44,14 @@ const AdminPanel = () => {
         <Link to="/admin/qr">QR Code</Link>
       </nav>
       <hr />
-      <button onClick={handleLogout}>Logout</button>
-
       <Routes>
         <Route path="/admin" element={<SlotForm />} />
         <Route path="/admin/slots" element={<SlotList />} />
         <Route path="/admin/booked" element={<BookedSlotList />} />
         <Route path="/admin/qr" element={<QrCodePage />} />
-      </Routes>
+      </Routes>Add commentMore actions
     </div>
   );
-};
+}
 
 export default AdminPanel;
