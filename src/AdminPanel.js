@@ -7,27 +7,9 @@ import BookedSlotList from './components/BookedSlotList';
 import QrCodePage from './components/QrCodePage';
 import AdminLogin from './components/AdminLogin';
 
-function AdminPanel() {
+
+  function AdminPanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem('isAdmin') === 'true';
-    setIsLoggedIn(loggedIn);
-  }, []);
-
-  const handleLogin = () => {
-    localStorage.setItem('isAdmin', 'true');
-    setIsLoggedIn(true);
-    navigate('/'); // redirect to main admin page
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin');
-    setIsLoggedIn(false);
-    navigate('/login');
-  };
 
   if (!isLoggedIn) {
     return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
