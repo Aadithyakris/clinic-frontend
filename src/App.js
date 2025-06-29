@@ -1,7 +1,7 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import BookingForm from './components/BookingForm';Add commentMore actions
+import BookingForm from './components/BookingForm';
 import AdminPanel from './AdminPanel';
 
 function App() {
